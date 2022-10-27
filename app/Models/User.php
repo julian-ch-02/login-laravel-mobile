@@ -42,20 +42,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function getAvatarAttribute(){
-        return "https://www.gravatar.com/avatar/".md5(strtolower(trim($this->username)));
-    }
-
-    public function categories(){
-        return $this->hasMany(Categories::class);
-    }
-
-    public function products(){
-        return $this->hasMany(Products::class);
-    }
-
-    public function carts(){
-        return $this->hasMany(Carts::class);
-    }
 }

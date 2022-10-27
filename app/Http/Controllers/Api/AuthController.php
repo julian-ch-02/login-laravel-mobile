@@ -50,30 +50,6 @@ class AuthController extends Controller
         return $this->json();
     }
 
-    public function register(Request $request)
-    {
-        $fields = $request->validate([
-            'username' => 'required|string|unique:users,username',
-            'password' => 'required|string'
-        ]);
-
-        $user = User::create([
-            'username' => $fields['username'],
-            'password' => bcrypt($fields['password'])
-        ]);
-
-
-        $token = $user->createToken('myapptoken')->plainTextToken;
-        $data = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        $this->code = 201;
-        $this->response->data = $data;
-        return $this->json();
-    }
-
     public function logout()
     {
         auth()->user()->tokens()->delete();
