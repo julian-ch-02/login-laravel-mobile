@@ -26,20 +26,24 @@ class AuthController extends Controller
             return $this->json();
         }
 
-        // Check email
+        // Check username
         $user = User::where('username', $request->username)->first();
-
-        // Check password
-        if (!$user || !Hash::check($request->password, $user->password)) {
-
+        if(!$user){
             $this->code = 404;
             $this->response->status = false;
             $this->response->message = __('auth.failed');
-            $this->response->errors = !Hash::check($request->password, $user->password);
             return $this->json();
         }
 
-        $token = $user->createToken('myapptoken')->plainTextToken;
+        // Check password
+        if (!Hash::check($request->password, $user->password)) {
+            $this->code = 404;
+            $this->response->status = false;
+            $this->response->message = __('auth.failed');
+            return $this->json();
+        }
+
+        $token = $user->createToken('token')->plainTextToken;
 
         $data = [
             'user' => $user,

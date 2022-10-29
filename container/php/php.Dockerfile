@@ -28,8 +28,8 @@ RUN docker-php-ext-install pdo_mysql \
 RUN apt-get install libicu-dev -y
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
 # xdebug
-RUN pecl install xdebug-2.8.1
-RUN docker-php-ext-enable xdebug
+#RUN pecl install xdebug-2.8.1
+#RUN docker-php-ext-enable xdebug
 # imagick
 #RUN apt-get install -y libmagickwand-dev --no-install-recommends
 
